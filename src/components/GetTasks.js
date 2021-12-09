@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useGetTaskQuery } from '../features/api/Task-two';
 
 const GetTasks = () => {
   const [tasks, setTasks] = useState([]);
   const url = process.env.REACT_APP_URL + process.env.REACT_APP_TASKS;
+
+  const { data, error, isLoading, refresh } = useGetTaskQuery();
+
+  console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,19 +40,25 @@ const GetTasks = () => {
 
   return (
     <>
-      <ul>
-        {tasks.map((element) => (
-          <li key={`li-${element._id}`} id={element._id}>
-            {element.title}
-            <button
-              onClick={(e) => {
-                deleteTask(e, element._id);
-              }}>
-              Delete Task
-            </button>
-          </li>
-        ))}
-      </ul>
+      {error ? (
+        <>Oh no, there was an error</>
+      ) : isLoading ? (
+        <>Loading...</>
+      ) : data ? (
+        <ul>
+          {data.map((element) => (
+            <li key={`li-${element._id}`} id={element._id}>
+              {element.title}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                }}>
+                Delete Task
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </>
   );
 };
