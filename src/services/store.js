@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { apiSlice } from '../features/api/Task-two';
+import { apiSlice } from '../features/api/Task';
 export const store = configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
-    counter: counterReducer
+    [apiSlice.reducerPath]: apiSlice.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware)
 });

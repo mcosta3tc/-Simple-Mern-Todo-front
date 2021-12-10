@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useAddTaskMutation } from '../features/api/Task';
 
 const CreateTask = () => {
+  const [createTask] = useAddTaskMutation();
+
   const [title, setTitle] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const url = process.env.REACT_APP_URL + process.env.REACT_APP_TASKS;
-      await axios.post(url, { title });
-    } catch (error) {
-      console.log(error);
-    }
+    await createTask({ title });
   };
 
   return (
