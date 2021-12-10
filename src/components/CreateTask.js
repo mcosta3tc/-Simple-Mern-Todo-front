@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAddTaskMutation } from '../features/api/Task';
+import { useAddTaskMutation } from '../services/api/taskSlice';
 
 const CreateTask = () => {
   const [createTask] = useAddTaskMutation();

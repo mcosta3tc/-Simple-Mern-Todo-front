@@ -1,19 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const apiSlice = createApi({
+export const TaskSlice = createApi({
   reducerPath: 'api',
   tagTypes: ['Task'],
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3001/api/'
+    baseUrl: process.env.REACT_APP_URL
   }),
   endpoints: (builder) => ({
     task: builder.query({
-      query: () => `/task/`,
+      query: () => process.env.REACT_APP_TASKS,
       providesTags: ['Task']
     }),
     addTask: builder.mutation({
       query: (body) => ({
-        url: '/task/',
+        url: process.env.REACT_APP_TASKS,
         method: 'POST',
         body: body
       }),
@@ -22,7 +22,7 @@ export const apiSlice = createApi({
     deleteTask: builder.mutation({
       query(_id) {
         return {
-          url: `/task/${_id}`,
+          url: process.env.REACT_APP_TASKS + `${_id}`,
           method: 'DELETE'
         };
       },
@@ -31,4 +31,4 @@ export const apiSlice = createApi({
   })
 });
 
-export const { useTaskQuery, useDeleteTaskMutation, useAddTaskMutation } = apiSlice;
+export const { useTaskQuery, useDeleteTaskMutation, useAddTaskMutation } = TaskSlice;
