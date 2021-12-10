@@ -17,7 +17,7 @@ const CreateTask = () => {
         Enter Task
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
       </label>
-      <input type="submit" />
+      <button type="submit">Create</button>
     </form>
   );
 };
