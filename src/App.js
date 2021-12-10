@@ -1,9 +1,15 @@
 import './App.css';
-import Home from './components/Home';
 import React from 'react';
+import CreateTask from './components/CreateTask';
+import GetTasks from './components/GetTasks';
 
 function App() {
-  return <Home />;
+  return (
+    <div className="bg-gray-200 p-4 h-screen grid justify-items-center content-start mx-auto">
+      <CreateTask />
+      <GetTasks />
+    </div>
+  );
 }
 
 export default App;
