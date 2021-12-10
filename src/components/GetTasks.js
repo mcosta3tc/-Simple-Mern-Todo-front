@@ -1,51 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useDeleteTaskMutation, useTaskQuery } from '../features/api/Task';
 
 const GetTasks = () => {
-  const [tasks, setTasks] = useState([]);
-  const url = process.env.REACT_APP_URL + process.env.REACT_APP_TASKS;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await axios
-          .get(url)
-          .then((response) => {
-            const data = response.data;
-            setTasks(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchData();
-  }, [url]);
-
-  const deleteTask = async (e, taskId) => {
-    e.preventDefault();
-    try {
-      await axios.delete(url + `${taskId}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const { data } = useTaskQuery();
+  const [deleteTask] = useDeleteTaskMutation();
   return (
     <>
       <ul>
-        {tasks.map((element) => (
-          <li key={`li-${element._id}`} id={element._id}>
-            {element.title}
-            <button
-              onClick={(e) => {
-                deleteTask(e, element._id);
-              }}>
-              Delete Task
+        {data?.map((task) => (
+          <>
+            <li key={'li-' + task._id}>{task.title}</li>
+            <button key={'btn-' + task._id} onClick={() => deleteTask(task._id)}>
+              Delete
             </button>
-          </li>
+          </>
         ))}
       </ul>
     </>
