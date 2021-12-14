@@ -16,8 +16,7 @@ function NotFound() {
         className={
           'dark:text-neutral-50 text-neutral-900 dark:bg-neutral-700 bg-neutral-100 shadow-lg my-8' +
           ' px-4 py-2' +
-          ' shadow-neutral-300 dark:shadow-neutral-80' +
-          '*0 rounded-lg'
+          ' shadow-neutral-300 dark:shadow-neutral-800 rounded-lg'
         }>
         Back Home
       </button>
