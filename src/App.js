@@ -3,7 +3,8 @@ import React from 'react';
 import Login from './features/auth/Login';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './utils/PrivateRoute';
-import { ProtectedComponent } from './features/auth/ProtectedComponent';
+import GetTasks from './components/GetTasks';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
         path={'/'}
         element={
           <PrivateRoute>
-            <ProtectedComponent />
+            <GetTasks />
           </PrivateRoute>
         }
       />
+      <Route path={'*'} element={<NotFound />} />
     </Routes>
   );
 }
