@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { TaskSlice } from './api/taskSlice';
+import { Query } from './api/Query';
+import authReducer from '../features/auth/authSlice';
+
 export const store = configureStore({
   reducer: {
-    [TaskSlice.reducerPath]: TaskSlice.reducer
+    [Query.reducerPath]: Query.reducer,
+    auth: authReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(TaskSlice.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(Query.middleware)
 });
 
 setupListeners(store.dispatch);

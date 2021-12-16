@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDeleteTaskMutation, useTaskQuery } from '../services/api/taskSlice';
+import { useDeleteTaskMutation, useTaskQuery } from '../services/api/Query';
 
 const GetTasks = () => {
   const { data } = useTaskQuery();
