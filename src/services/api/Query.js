@@ -10,12 +10,10 @@ export const Query = createApi({
       const token = getState().auth.accessToken;
       if (token) {
         headers.set('Authorization', token);
-      } else {
-        console.log('no');
       }
-      console.log('token', token);
       return headers;
-    }
+    },
+    credentials: 'include'
   }),
   endpoints: (builder) => ({
     //Tasks API
@@ -51,6 +49,13 @@ export const Query = createApi({
     }),
     protected: builder.mutation({
       query: () => 'protected'
+    }),
+    refreshToken: builder.mutation({
+      query: (accessToken) => ({
+        url: process.env.REACT_APP_AUTH_REFRESH,
+        method: 'POST',
+        body: accessToken
+      })
     })
   })
 });
@@ -60,5 +65,6 @@ export const {
   useDeleteTaskMutation,
   useAddTaskMutation,
   useLoginMutation,
-  useProtectedMutation
+  useProtectedMutation,
+  useRefreshTokenMutation
 } = Query;
