@@ -1,9 +1,38 @@
-import React from 'react';
-import { useDeleteTaskMutation, useTaskQuery } from '../services/api/Query';
+import React, { useEffect } from 'react';
+import {
+  useDeleteTaskMutation,
+  useRefreshTokenMutation,
+  useTaskQuery
+} from '../services/api/Query';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentAccessToken, setCredentials } from '../features/auth/authSlice';
 
 const GetTasks = () => {
-  const { data } = useTaskQuery();
   const [deleteTask] = useDeleteTaskMutation();
+  const dispatch = useDispatch();
+  const accessToken = useSelector(selectCurrentAccessToken);
+  const { data, error } = useTaskQuery();
+  const [attemptRefreshToken] = useRefreshTokenMutation();
+
+  useEffect(() => {
+    async function refreshToken() {
+      if (error && error.status === 401) {
+        await attemptRefreshToken()
+          .then((response) => {
+            dispatch(setCredentials(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+    try {
+      refreshToken();
+    } catch (e) {
+      console.log(e);
+    }
+  }, [attemptRefreshToken, dispatch, error, data, accessToken]);
+
   return (
     <>
       {data?.map((task) => (

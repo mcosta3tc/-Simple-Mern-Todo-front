@@ -47,14 +47,16 @@ export const Query = createApi({
       }),
       invalidatesTags: ['Token']
     }),
-    protected: builder.mutation({
-      query: () => 'protected'
-    }),
     refreshToken: builder.mutation({
-      query: (accessToken) => ({
+      query: () => ({
         url: process.env.REACT_APP_AUTH_REFRESH,
-        method: 'POST',
-        body: accessToken
+        method: 'POST'
+      })
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: process.env.REACT_APP_AUTH_DELETE,
+        method: 'Delete'
       })
     })
   })
@@ -65,6 +67,6 @@ export const {
   useDeleteTaskMutation,
   useAddTaskMutation,
   useLoginMutation,
-  useProtectedMutation,
-  useRefreshTokenMutation
+  useRefreshTokenMutation,
+  useLogoutMutation
 } = Query;

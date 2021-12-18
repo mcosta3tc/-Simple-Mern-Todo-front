@@ -46,9 +46,16 @@ export const Login = () => {
       <button
         onClick={async () => {
           try {
-            const tokens = await login(formState).unwrap();
-            dispatch(setCredentials(tokens));
-            navigate('/');
+            await login(formState)
+              .unwrap()
+              .then((r) => {
+                console.log(r);
+                dispatch(setCredentials(r));
+                navigate('/');
+              })
+              .catch((e) => {
+                console.log(e);
+              });
           } catch (err) {
             console.log('error', err);
           }
