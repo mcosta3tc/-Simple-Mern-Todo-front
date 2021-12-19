@@ -13,7 +13,7 @@ function PasswordInput({ name, onChange }) {
     <div className={'w-64 flex justify-between pb-4'}>
       <input
         className={
-          'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-600 placeholder-neutral-400 w-3/4'
+          'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-500 placeholder-neutral-400 w-3/4'
         }
         type={show ? 'text' : 'password'}
         placeholder={'Enter Password'}
@@ -22,7 +22,7 @@ function PasswordInput({ name, onChange }) {
       />
       <button
         className={
-          'text-neutral-400 rounded-md bg-neutral-100 dark:bg-neutral-600 px-1 focus:outline focus:outline-offset-2 focus:outline-neutral-600'
+          'text-neutral-400 rounded-md bg-neutral-100 dark:bg-neutral-600 px-1 focus:outline focus:outline-offset-2 focus:outline-neutral-500'
         }
         onClick={handleClick}>
         {show ? 'Hide' : 'Show'}
@@ -62,7 +62,7 @@ export const Login = () => {
           <div className={'flex flex-col'}>
             <input
               className={
-                'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-600 placeholder-neutral-400'
+                'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-500 placeholder-neutral-400'
               }
               onChange={handleChange}
               type="text"
