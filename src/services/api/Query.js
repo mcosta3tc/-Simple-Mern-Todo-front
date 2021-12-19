@@ -10,17 +10,22 @@ export const Query = createApi({
       const token = getState().auth.accessToken;
       if (token) {
         headers.set('Authorization', token);
-      } else {
-        console.log('no');
       }
-      console.log('token', token);
       return headers;
-    }
+    },
+    credentials: 'include'
   }),
   endpoints: (builder) => ({
     //Tasks API
     task: builder.query({
       query: () => process.env.REACT_APP_TASKS,
+      providesTags: ['Task']
+    }),
+    taskRefresh: builder.mutation({
+      query: () => ({
+        url: process.env.REACT_APP_TASKS,
+        method: 'GET'
+      }),
       providesTags: ['Task']
     }),
     addTask: builder.mutation({
@@ -49,16 +54,27 @@ export const Query = createApi({
       }),
       invalidatesTags: ['Token']
     }),
-    protected: builder.mutation({
-      query: () => 'protected'
+    refreshToken: builder.mutation({
+      query: () => ({
+        url: process.env.REACT_APP_AUTH_REFRESH,
+        method: 'POST'
+      })
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: process.env.REACT_APP_AUTH_DELETE,
+        method: 'Delete'
+      })
     })
   })
 });
 
 export const {
   useTaskQuery,
+  useTaskRefreshMutation,
   useDeleteTaskMutation,
   useAddTaskMutation,
   useLoginMutation,
-  useProtectedMutation
+  useRefreshTokenMutation,
+  useLogoutMutation
 } = Query;

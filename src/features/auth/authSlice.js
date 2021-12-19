@@ -4,13 +4,15 @@ const slice = createSlice({
   name: 'auth',
   initialState: { userId: null, accessToken: null },
   reducers: {
-    setCredentials: (state, { payload: { userId, accessToken } }) => {
-      state.userId = userId;
+    setCredentials: (state, { payload: { accessToken } }) => {
       state.accessToken = accessToken;
+    },
+    setCookie: (state, { payload: { cookie } }) => {
+      state.cookie = cookie;
     }
   }
 });
 
-export const { setCredentials } = slice.actions;
+export const { setCredentials, setCookie } = slice.actions;
 export default slice.reducer;
-export const selectCurrentUser = (state) => state.auth.userId;
+export const selectCurrentAccessToken = (state) => state.auth.accessToken;
