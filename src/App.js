@@ -8,6 +8,7 @@ import CreateTask from './components/CreateTask';
 import Logout from './features/auth/Logout';
 
 function App() {
+  console.log('test deploy');
   return (
     <Routes>
       <Route exact path={'/login'} element={<Login />} />
