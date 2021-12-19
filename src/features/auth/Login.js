@@ -6,24 +6,35 @@ import { setCredentials } from './authSlice';
 
 function PasswordInput({ name, onChange }) {
   const [show, setShow] = useState(false);
+
   const handleClick = () => setShow(!show);
 
   return (
-    <>
+    <div className={'w-64 flex justify-between pb-4'}>
       <input
+        className={
+          'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-600 placeholder-neutral-400 w-3/4'
+        }
         type={show ? 'text' : 'password'}
         placeholder={'Enter Password'}
         name={name}
         onChange={onChange}
       />
-      <button onClick={handleClick}>{show ? 'Hide' : 'Show'}</button>
-    </>
+      <button
+        className={
+          'text-neutral-400 rounded-md bg-neutral-100 dark:bg-neutral-600 px-1 focus:outline focus:outline-offset-2 focus:outline-neutral-600'
+        }
+        onClick={handleClick}>
+        {show ? 'Hide' : 'Show'}
+      </button>
+    </div>
   );
 }
 
 export const Login = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const [valideCredentials, setValideCredentials] = useState(true);
 
   const [formState, setFormState] = useState({ email: '', password: '' });
 
@@ -34,35 +45,61 @@ export const Login = () => {
   };
 
   return (
-    <>
-      <label>
-        email
-        <input onChange={handleChange} type="text" name={'email'} placeholder={'Email'} />
-      </label>
-      <label>
-        password
+    <div
+      className={
+        'h-screen bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900 h-screen flex justify-center items-center text-neutral-600 dark:text-neutral-400 flex-col'
+      }>
+      <div
+        className={`${
+          valideCredentials
+            ? 'mb-8 bg-neutral-100 w-64 py-1 text-center dark:bg-neutral-600 rounded-md invisible'
+            : 'mb-8 bg-neutral-100 w-64 py-1 text-center dark:bg-neutral-600 rounded-md'
+        }`}>
+        Invalid Username or Password
+      </div>
+      <div className={'w-64 flex justify-center items-center flex-col'}>
+        <div className={'w-64 pb-4'}>
+          <div className={'flex flex-col'}>
+            <input
+              className={
+                'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-600 placeholder-neutral-400'
+              }
+              onChange={handleChange}
+              type="text"
+              name={'email'}
+              placeholder={'Email'}
+            />
+          </div>
+        </div>
         <PasswordInput onChange={handleChange} name={'password'} />
-      </label>
-      <button
-        onClick={async () => {
-          try {
-            await login(formState)
-              .unwrap()
-              .then((r) => {
-                console.log(r);
-                dispatch(setCredentials(r));
-                navigate('/');
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          } catch (err) {
-            console.log('error', err);
+
+        <button
+          className={
+            'dark:text-neutral-200 dark:bg-neutral-700 shadow-neutral-200 bg-neutral-100 dark:shadow-neutral-600 my-8 px-4 py-2 rounded-lg shadow-lg focus:hide'
           }
-        }}>
-        Login
-      </button>
-    </>
+          onClick={async () => {
+            try {
+              await login(formState)
+                .unwrap()
+                .then((r) => {
+                  console.log(r);
+                  dispatch(setCredentials(r));
+                  navigate('/');
+                })
+                .catch((e) => {
+                  if (e.status === 400) {
+                    setValideCredentials(false);
+                  }
+                  console.log(e);
+                });
+            } catch (err) {
+              console.log('error', err);
+            }
+          }}>
+          Login
+        </button>
+      </div>
+    </div>
   );
 };
 

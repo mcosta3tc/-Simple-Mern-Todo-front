@@ -21,6 +21,13 @@ export const Query = createApi({
       query: () => process.env.REACT_APP_TASKS,
       providesTags: ['Task']
     }),
+    taskRefresh: builder.mutation({
+      query: () => ({
+        url: process.env.REACT_APP_TASKS,
+        method: 'GET'
+      }),
+      providesTags: ['Task']
+    }),
     addTask: builder.mutation({
       query: (body) => ({
         url: process.env.REACT_APP_TASKS,
@@ -64,6 +71,7 @@ export const Query = createApi({
 
 export const {
   useTaskQuery,
+  useTaskRefreshMutation,
   useDeleteTaskMutation,
   useAddTaskMutation,
   useLoginMutation,
