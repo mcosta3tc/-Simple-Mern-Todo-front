@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLoginMutation } from '../../services/api/Query';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCredentials } from './authSlice';
+import { setCredentials, setRefreshToken } from './authSlice';
 
 function PasswordInput({ name, onChange }) {
   const [show, setShow] = useState(false);
@@ -82,8 +82,8 @@ export const Login = () => {
               await login(formState)
                 .unwrap()
                 .then((r) => {
-                  console.log(r);
-                  dispatch(setCredentials(r));
+                  dispatch(setCredentials({ accessToken: r.accessToken }));
+                  dispatch(setRefreshToken({ refreshToken: r.refreshToken }));
                   navigate('/');
                 })
                 .catch((e) => {

@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { useAddTaskMutation, useRefreshTokenMutation } from '../services/api/Query';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentAccessToken, setCredentials } from '../features/auth/authSlice';
+import { selectCurrentRefreshToken, setCredentials } from '../features/auth/authSlice';
 
 const CreateTask = () => {
   const [createTask] = useAddTaskMutation();
   const [title, setTitle] = useState('');
 
   const dispatch = useDispatch();
-  const accessToken = useSelector(selectCurrentAccessToken);
+  const refreshToken = useSelector(selectCurrentRefreshToken);
   const [attemptRefreshToken] = useRefreshTokenMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createTask({ title }, accessToken)
+    await createTask({ title })
       .then(async (response) => {
         if (response.error.status === 401) {
-          await attemptRefreshToken()
+          await attemptRefreshToken({ refreshToken })
             .then((response) => {
               dispatch(setCredentials(response.data));
             })
