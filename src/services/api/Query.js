@@ -12,8 +12,7 @@ export const Query = createApi({
         headers.set('Authorization', token);
       }
       return headers;
-    },
-    credentials: 'include'
+    }
   }),
   endpoints: (builder) => ({
     //Tasks API
