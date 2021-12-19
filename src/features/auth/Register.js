@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useLoginMutation } from '../../services/api/Query';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setCredentials, setRefreshToken } from './authSlice';
+import { useRegisterMutation } from '../../services/api/Query';
 
 function PasswordInput({ name, onChange }) {
   const [show, setShow] = useState(false);
@@ -31,14 +30,14 @@ function PasswordInput({ name, onChange }) {
   );
 }
 
-export const Login = () => {
+export const Register = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [valideCredentials, setValideCredentials] = useState(true);
 
   const [formState, setFormState] = useState({ email: '', password: '' });
 
-  const [login] = useLoginMutation();
+  const [register] = useRegisterMutation();
 
   const handleChange = ({ target: { name, value } }) => {
     setFormState((prev) => ({ ...prev, [name]: value }));
@@ -73,18 +72,16 @@ export const Login = () => {
         </div>
         <PasswordInput onChange={handleChange} name={'password'} />
 
-        <div className={'flex flex-row w-full justify-start'}>
+        <div>
           <button
             className={
-              'dark:text-neutral-200 dark:bg-neutral-700 shadow-neutral-200 bg-neutral-100 dark:shadow-neutral-600 my-8 px-4 py-2 rounded-lg shadow-lg focus:hide ml-4 mr-4'
+              'dark:text-neutral-200 dark:bg-neutral-700 shadow-neutral-200 bg-neutral-100 dark:shadow-neutral-600 my-8 px-4 py-2 rounded-lg shadow-lg focus:hide'
             }
             onClick={async () => {
               try {
-                await login(formState)
+                await register(formState)
                   .unwrap()
                   .then((r) => {
-                    dispatch(setCredentials({ accessToken: r.accessToken }));
-                    dispatch(setRefreshToken({ refreshToken: r.refreshToken }));
                     navigate('/');
                   })
                   .catch((e) => {
@@ -97,16 +94,6 @@ export const Login = () => {
                 console.log('error', err);
               }
             }}>
-            Login
-          </button>
-          <button
-            className={
-              'dark:text-neutral-200 dark:bg-neutral-700 shadow-neutral-200 bg-neutral-100 dark:shadow-neutral-600 my-8 px-4 py-2 rounded-lg shadow-lg focus:hide'
-            }
-            onClick={(event) => {
-              event.preventDefault();
-              navigate('/register');
-            }}>
             Register
           </button>
         </div>
@@ -115,4 +102,4 @@ export const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

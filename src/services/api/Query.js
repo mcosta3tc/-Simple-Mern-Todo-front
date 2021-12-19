@@ -53,6 +53,14 @@ export const Query = createApi({
       }),
       invalidatesTags: ['Token']
     }),
+    register: builder.mutation({
+      query: (body) => ({
+        url: process.env.REACT_APP_AUTH_Register,
+        method: 'POST',
+        body: body
+      }),
+      invalidatesTags: ['Token']
+    }),
     refreshToken: builder.mutation({
       query: (refreshToken) => ({
         url: process.env.REACT_APP_AUTH_REFRESH,
@@ -78,5 +86,6 @@ export const {
   useAddTaskMutation,
   useLoginMutation,
   useRefreshTokenMutation,
+  useRegisterMutation,
   useLogoutMutation
 } = Query;
