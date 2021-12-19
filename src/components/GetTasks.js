@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import {
-  useDeleteTaskMutation,
-  useRefreshTokenMutation,
-  useTaskQuery
-} from '../services/api/Query';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentAccessToken, setCredentials } from '../features/auth/authSlice';
+import { useTaskQuery } from '../services/api/Query';
+import { useSelector } from 'react-redux';
+import { selectCurrentAccessToken } from '../features/auth/authSlice';
+import DeleteTask from './DeleteTask';
 
 const GetTasks = () => {
-  const [deleteTask] = useDeleteTaskMutation();
+  /*  const [deleteTask] = useDeleteTaskMutation();
   const dispatch = useDispatch();
   const accessToken = useSelector(selectCurrentAccessToken);
   const { data, error } = useTaskQuery();
@@ -31,7 +28,16 @@ const GetTasks = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [attemptRefreshToken, dispatch, error, data, accessToken]);
+  }, [attemptRefreshToken, dispatch, error, data, accessToken]);*/
+  //const [deleteTask] = useDeleteTaskMutation();
+  //let { data } = useTaskQuery();
+  //let [taskRefresh, { data, isLoading, error }] = useTaskRefreshMutation();
+
+  const accessToken = useSelector(selectCurrentAccessToken);
+
+  const { data, error, status } = useTaskQuery();
+
+  useEffect(() => {}, [accessToken, data]);
 
   return (
     <>
@@ -42,11 +48,7 @@ const GetTasks = () => {
           <div className="border-2 border-black text-lg basis-2/3 flex items-center pl-2">
             {task.title}
           </div>
-          <button
-            className="px-4 py-2 rounded-lg bg-red-500 text-red-200 shadow-md hover:shadow-inner hover:bg-red-600 hover:text-red-100"
-            onClick={() => deleteTask(task._id)}>
-            Delete
-          </button>
+          <DeleteTask taskId={task._id} />
         </div>
       ))}
     </>

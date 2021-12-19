@@ -52,17 +52,17 @@ export const Login = () => {
       <div
         className={`${
           valideCredentials
-            ? 'mb-8 bg-neutral-100 w-64 py-1 text-center dark:bg-neutral-600 rounded-md invisible'
-            : 'mb-8 bg-neutral-100 w-64 py-1 text-center dark:bg-neutral-600 rounded-md'
+            ? 'mb-12 bg-neutral-100 w-64 py-1 text-center dark:bg-neutral-600 rounded-md invisible'
+            : 'mb-12 bg-neutral-100 w-64 py-1 text-center dark:bg-neutral-600 rounded-md'
         }`}>
-        Invalid Username or Password
+        Error please try again
       </div>
       <div className={'w-64 flex justify-center items-center flex-col'}>
         <div className={'w-64 pb-4'}>
           <div className={'flex flex-col'}>
             <input
               className={
-                'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-500 placeholder-neutral-400'
+                'bg-neutral-100 focus:text-neutral-900 rounded-md dark:bg-neutral-600 focus:bg-neutral-50 p-2 focus:outline focus:outline-offset-2 focus:outline-neutral-500 placeholder-neutral-400 placeholder-p-4'
               }
               onChange={handleChange}
               type="text"

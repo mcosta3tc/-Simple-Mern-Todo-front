@@ -55,16 +55,19 @@ export const Query = createApi({
       invalidatesTags: ['Token']
     }),
     refreshToken: builder.mutation({
-      query: () => ({
+      query: (refreshToken) => ({
         url: process.env.REACT_APP_AUTH_REFRESH,
-        method: 'POST'
-      })
+        method: 'POST',
+        body: refreshToken
+      }),
+      invalidatesTags: ['Token']
     }),
     logout: builder.mutation({
       query: () => ({
         url: process.env.REACT_APP_AUTH_DELETE,
         method: 'Delete'
-      })
+      }),
+      invalidatesTags: ['Token']
     })
   })
 });
