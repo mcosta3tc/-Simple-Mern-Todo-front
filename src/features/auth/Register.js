@@ -86,6 +86,9 @@ export const Register = () => {
                     if (e.status === 400) {
                       setValideCredentials(false);
                     }
+                    if (e.data === 'OK') {
+                      navigate('/');
+                    }
                     console.log(e);
                   });
               } catch (err) {

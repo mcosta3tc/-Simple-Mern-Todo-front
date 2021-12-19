@@ -55,7 +55,7 @@ export const Query = createApi({
     }),
     register: builder.mutation({
       query: (body) => ({
-        url: process.env.REACT_APP_AUTH_Register,
+        url: process.env.REACT_APP_AUTH_REGISTER,
         method: 'POST',
         body: body
       }),
