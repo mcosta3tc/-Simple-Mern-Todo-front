@@ -3,9 +3,7 @@ import Login from './features/auth/Login';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './utils/PrivateRoute';
 import NotFound from './components/NotFound';
-import GetTasks from './components/GetTasks';
-import CreateTask from './components/CreateTask';
-import Logout from './features/auth/Logout';
+import Home from './components/Home';
 
 function App() {
   console.log('test deploy');
@@ -16,9 +14,7 @@ function App() {
         path={'/'}
         element={
           <PrivateRoute>
-            <CreateTask />
-            <GetTasks />
-            <Logout />
+            <Home />
           </PrivateRoute>
         }
       />

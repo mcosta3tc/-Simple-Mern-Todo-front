@@ -6,7 +6,7 @@ function NotFound() {
   return (
     <div
       className={
-        'bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900 h-screen mx-auto flex items-center justify-center flex-col'
+        'bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800 h-screen mx-auto flex items-center justify-center flex-col'
       }>
       <h1 className={'text-2xl py-2 '}>404</h1>
       <h2 className={'text-lg'}>You're lost.</h2>

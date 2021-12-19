@@ -7,6 +7,9 @@ function Logout() {
   const [attemptLogout] = useLogoutMutation();
   return (
     <button
+      className={
+        'dark:text-neutral-200 dark:bg-neutral-700 shadow-neutral-200 bg-neutral-100 dark:shadow-neutral-600 m-2 px-4 py-2 rounded-lg shadow-lg focus:hide'
+      }
       onClick={async (event) => {
         event.preventDefault();
         await attemptLogout()

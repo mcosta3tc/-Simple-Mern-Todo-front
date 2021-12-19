@@ -42,14 +42,16 @@ const GetTasks = () => {
   return (
     <>
       {data?.map((task) => (
-        <div
-          className="container border-2 border-black bg-white mx-auto my-2 rounded-lg p-4 shadow-md flex justify-between"
-          key={`li-${task._id}`}>
-          <div className="border-2 border-black text-lg basis-2/3 flex items-center pl-2">
-            {task.title}
+        <>
+          <div
+            className="bg-neutral-100 dark:bg-neutral-900 mx-auto mb-4 rounded-lg p-4 flex justify-between items-center"
+            key={`li-${task._id}`}>
+            <div className="dark:text-neutral-200 flex items-center w-2/3">
+              <p className={'break-all'}>{task.title}</p>
+            </div>
+            <DeleteTask taskId={task._id} />
           </div>
-          <DeleteTask taskId={task._id} />
-        </div>
+        </>
       ))}
     </>
   );
