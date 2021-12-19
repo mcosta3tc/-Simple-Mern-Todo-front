@@ -1,13 +1,8 @@
 import React from 'react';
-import { useDeleteTaskMutation, useRefreshTokenMutation } from '../services/api/Query';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentRefreshToken } from '../features/auth/authSlice';
+import { useDeleteTaskMutation } from '../services/api/Query';
 
 const DeleteTask = (props) => {
   const [deleteTask] = useDeleteTaskMutation();
-  const [attemptRefreshToken] = useRefreshTokenMutation();
-  const refreshToken = useSelector(selectCurrentRefreshToken);
-  const dispatch = useDispatch();
 
   const handleDeleteTask = async (id) => {
     await deleteTask(id)

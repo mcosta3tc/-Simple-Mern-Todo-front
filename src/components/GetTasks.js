@@ -35,7 +35,7 @@ const GetTasks = () => {
 
   const accessToken = useSelector(selectCurrentAccessToken);
 
-  const { data, error, status } = useTaskQuery();
+  const { data } = useTaskQuery();
 
   useEffect(() => {}, [accessToken, data]);
 
