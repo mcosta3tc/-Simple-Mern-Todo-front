@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '../../services/api/Query';
 
@@ -31,7 +30,6 @@ function PasswordInput({ name, onChange }) {
 }
 
 export const Register = () => {
-  const dispatch = useDispatch();
   let navigate = useNavigate();
   const [valideCredentials, setValideCredentials] = useState(true);
 
